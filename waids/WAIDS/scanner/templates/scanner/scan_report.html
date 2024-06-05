@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Reports</title>
+</head>
+<body>
+    <h1>Scan Reports</h1>
+    <ul>
+    {% for report in reports %}
+        <li>{{ report.date }} - {{ report.user.username }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

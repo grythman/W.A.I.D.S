@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attack List</title>
+</head>
+<body>
+    <h1>Attack List</h1>
+    <ul>
+    {% for attack in attacks %}
+        <li>{{ attack.detected_date }} - {{ attack.type }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
