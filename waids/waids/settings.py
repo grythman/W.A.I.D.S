@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'WAIDS.urls'
+ROOT_URLCONF = 'waids.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'WAIDS.wsgi.application'
+WSGI_APPLICATION = 'waids.wsgi.application'
 
 
 # Database
