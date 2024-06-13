@@ -1,0 +1,415 @@
+/*-------------------------------
+    Dark Theme  CSS
+-------------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap");
+.switch-theme-mode {
+  position: fixed;
+  top: 200px;
+  right: 15px;
+  z-index: 99;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+.slider.round {
+  border-radius: 50%;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 35px;
+  width: 35px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  transition: 0.4s;
+  box-shadow: 0 0px 15px rgba(32, 32, 32, 0.2392156863);
+  background: white url("../img/sunny.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 17px;
+  background-color: #000000;
+}
+
+.navbar-area .navbar,
+input:checked + .slider {
+  background-color: transparent;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px transparent;
+}
+
+input:checked + .slider:before {
+  transform: translateX(0);
+  background: white url("../img/night.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px;
+}
+
+.theme-light .navbar-brand .logo-dark,
+.theme-light .logo .logo-dark {
+  display: none !important;
+}
+.theme-light .navbar-brand .logo-light,
+.theme-light .logo .logo-light {
+  display: block !important;
+}
+
+.theme-dark .navbar-brand .logo-dark,
+.theme-dark .logo .logo-dark {
+  display: block !important;
+}
+.theme-dark .navbar-brand .logo-light,
+.theme-dark .logo .logo-light {
+  display: none !important;
+}
+.theme-dark body {
+  background-color: #000000;
+  color: rgba(255, 255, 255, 0.7);
+}
+.theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark h5, .theme-dark h6,
+.theme-dark .services-sidebar .services-category ul li a,
+.theme-dark .our-approach-area.our-approach-area-four .col-lg-6 .row .col-lg-6:nth-child(2) .single-approach h3,
+.theme-dark .our-approach-area.our-approach-area-four .col-lg-6 .row .col-lg-6:nth-child(3) .single-approach h3,
+.theme-dark .banner-area.banner-area-three .banner-content h1,
+.theme-dark .faq-accordion .accordion .accordion-title,
+.theme-dark .get-in-touch-area.get-in-touch-area-two .get-in-touch-form .form-group label,
+.theme-dark .about-content .tab_content .tabs_item ul li,
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .additional-information li span,
+.theme-dark .protect-area.protect-area-three .single-challenges h3,
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .additional-information li,
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .label-title i,
+.theme-dark .checkout-area .faq-accordion .form-check label,
+.theme-dark .counter-area.counter-area-three .single-counter h2,
+.theme-dark .counter-area.counter-area-three .single-counter h3,
+.theme-dark .team-area.team-area-three .single-team .team-content h3,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-quantity .input-counter .minus-btn,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-quantity .input-counter .plus-btn,
+.theme-dark .testimonials-area.testimonials-page-area .testimonials-item h3,
+.theme-dark .navbar-area.navbar-area-two .mean-container a.meanmenu-reveal {
+  color: #ffffff;
+}
+.theme-dark .testimonials-area.testimonials-page-area .testimonials-item p,
+.theme-dark .our-approach-area.our-approach-area-four .col-lg-6 .row .col-lg-6:nth-child(3) .single-approach p,
+.theme-dark .our-approach-area.our-approach-area-four .col-lg-6 .row .col-lg-6:nth-child(2) .single-approach p,
+.theme-dark .banner-area.banner-area-three .banner-content p,
+.theme-dark .protect-area.protect-area-three .single-challenges p,
+.theme-dark .testimonials-area.testimonials-page-area .testimonials-item span,
+.theme-dark .forgot-login a,
+.theme-dark .team-area.team-area-three .single-team .team-content span,
+.theme-dark .shopping-cart-area .cart-totals ul li,
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .product-review-form .review-form form .form-group label,
+.theme-dark .product-details-area .product-details-desc .product-review .rating-count,
+.theme-dark .faq-accordion .accordion .accordion-content p {
+  color: rgba(255, 255, 255, 0.7);
+}
+.theme-dark .bg-color,
+.theme-dark .navbar-area.navbar-area-two.is-sticky,
+.theme-dark .faq-accordion .accordion .accordion-item,
+.theme-dark .counter-area::before,
+.theme-dark .navbar-area.navbar-area-two .mean-container .mean-bar,
+.theme-dark .navbar-area.navbar-area-two,
+.theme-dark .challenges-area::before,
+.theme-dark .get-in-touch-area::before,
+.theme-dark .copy-right-area,
+.theme-dark .solution-img:before,
+.theme-dark .testimonials-area::before,
+.theme-dark .blog-details-content .tag-list,
+.theme-dark .blog-details-content .blog-top-content blockquote,
+.theme-dark .footer-area::before {
+  background-color: #000000 !important;
+}
+.theme-dark .white-bg,
+.theme-dark .shopping-cart-area .cart-totals,
+.theme-dark .shopping-cart-area .cart-table table thead tr th {
+  background-color: #222;
+}
+.theme-dark .blog-details-content .comments ul li a,
+.theme-dark .blog-details-content .tag-list ul li a,
+.theme-dark .blog-details-content .tag-list span,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td a,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td,
+.theme-dark .shopping-cart-area .cart-table table thead tr th,
+.theme-dark .product-details-area .product-details-desc .social-wrap li,
+.theme-dark .blog-details-content .blog-top-content blockquote p,
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .input-newsletter {
+  color: #ffffff;
+}
+.theme-dark .banner-area.banner-area-three,
+.theme-dark .get-in-touch-area,
+.theme-dark .banner-area.bg-1 {
+  position: relative;
+  z-index: 1;
+}
+.theme-dark .banner-area.banner-area-three:after,
+.theme-dark .get-in-touch-area:after,
+.theme-dark .banner-area.bg-1:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: -1;
+}
+.theme-dark .navbar-area.navbar-area-two .mean-container a.meanmenu-reveal span,
+.theme-dark .navbar-area.navbar-area-two .others-option-for-responsive .dot-menu .inner .circle {
+  background-color: #ffffff;
+}
+.theme-dark .user-area-style .contact-form-action,
+.theme-dark .single-pricing,
+.theme-dark .single-approach,
+.theme-dark .mean-container .mean-nav,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu,
+.theme-dark .single-feature,
+.theme-dark .single-challenges,
+.theme-dark .navbar-area.navbar-area-two,
+.theme-dark .single-approach-box,
+.theme-dark .safety-area,
+.theme-dark .coming-soon-area::before,
+.theme-dark .coming-soon-area .coming-soon-content,
+.theme-dark .single-team .team-content,
+.theme-dark .get-in-touch-area::before,
+.theme-dark .blog-details-content .leave-reply,
+.theme-dark .single-blog-posts .single-blog-content,
+.theme-dark .protect-area .single-challenges,
+.theme-dark .blog-details-content .blog-top-content,
+.theme-dark .blog-details-content .comments,
+.theme-dark .team-area.team-area-three .single-team .team-content ul,
+.theme-dark .team-area.team-area-three .single-team .team-content,
+.theme-dark .single-team .team-content ul,
+.theme-dark .subscribe-bg {
+  background-color: #111;
+}
+.theme-dark .form-control,
+.theme-dark .get-in-touch-form .form-group .form-control,
+.theme-dark .newsletter-form .form-control {
+  background-color: transparent;
+  border: 1px solid #2e2e2e !important;
+  color: #ffffff;
+}
+.theme-dark .form-control::-moz-placeholder, .theme-dark .get-in-touch-form .form-group .form-control::-moz-placeholder, .theme-dark .newsletter-form .form-control::-moz-placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+.theme-dark .form-control::placeholder,
+.theme-dark .get-in-touch-form .form-group .form-control::placeholder,
+.theme-dark .newsletter-form .form-control::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+.theme-dark .sidebar-widget.search .search-form,
+.theme-dark .showing-result,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-subtotal .remove,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td,
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .input-newsletter {
+  background-color: transparent;
+}
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-subtotal .remove i,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item a.active {
+  color: #e21f36;
+}
+.theme-dark .mean-container .mean-nav ul li a,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li a,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a,
+.theme-dark .navbar-area.navbar-area-two .others-option .cart-icon a i,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li a,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item a,
+.theme-dark .about-content .tabs li,
+.theme-dark .single-solution h3 a,
+.theme-dark .now-log-in.font-q,
+.theme-dark .product-details-area .products-details-tab .tabs li a,
+.theme-dark .single-blog-posts .single-blog-content h3 a,
+.theme-dark .sidebar-widget.recent-post ul li a,
+.theme-dark .main-contact-area .contact-info .address li a,
+.theme-dark .user-area-style .contact-form-action p a,
+.theme-dark .single-blog .blog-content h3 a {
+  color: #ffffff;
+}
+.theme-dark .mean-container .mean-nav ul li a:hover, .theme-dark .mean-container .mean-nav ul li a.active, .theme-dark .mean-container .mean-nav ul li a.current,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li a:hover,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li a.active,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li a.current,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.current,
+.theme-dark .navbar-area.navbar-area-two .others-option .cart-icon a i:hover,
+.theme-dark .navbar-area.navbar-area-two .others-option .cart-icon a i.active,
+.theme-dark .navbar-area.navbar-area-two .others-option .cart-icon a i.current,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li a:hover,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li a.active,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li a.current,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.current,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item a:hover,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item a.active,
+.theme-dark .navbar-area.navbar-area-two .main-nav nav .navbar-nav .nav-item a.current,
+.theme-dark .about-content .tabs li:hover,
+.theme-dark .about-content .tabs li.active,
+.theme-dark .about-content .tabs li.current,
+.theme-dark .single-solution h3 a:hover,
+.theme-dark .single-solution h3 a.active,
+.theme-dark .single-solution h3 a.current,
+.theme-dark .now-log-in.font-q:hover,
+.theme-dark .now-log-in.font-q.active,
+.theme-dark .now-log-in.font-q.current,
+.theme-dark .product-details-area .products-details-tab .tabs li a:hover,
+.theme-dark .product-details-area .products-details-tab .tabs li a.active,
+.theme-dark .product-details-area .products-details-tab .tabs li a.current,
+.theme-dark .single-blog-posts .single-blog-content h3 a:hover,
+.theme-dark .single-blog-posts .single-blog-content h3 a.active,
+.theme-dark .single-blog-posts .single-blog-content h3 a.current,
+.theme-dark .sidebar-widget.recent-post ul li a:hover,
+.theme-dark .sidebar-widget.recent-post ul li a.active,
+.theme-dark .sidebar-widget.recent-post ul li a.current,
+.theme-dark .main-contact-area .contact-info .address li a:hover,
+.theme-dark .main-contact-area .contact-info .address li a.active,
+.theme-dark .main-contact-area .contact-info .address li a.current,
+.theme-dark .user-area-style .contact-form-action p a:hover,
+.theme-dark .user-area-style .contact-form-action p a.active,
+.theme-dark .user-area-style .contact-form-action p a.current,
+.theme-dark .single-blog .blog-content h3 a:hover,
+.theme-dark .single-blog .blog-content h3 a.active,
+.theme-dark .single-blog .blog-content h3 a.current {
+  color: #e21f36;
+}
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .product-review-form .review-comments .review-item .review-report-link,
+.theme-dark .product-details-area .product-details-desc .social-wrap li a i,
+.theme-dark .blog-details-content .blog-top-content .news-content .admin li a,
+.theme-dark .team-area.team-area-three .single-team .team-content ul li a i,
+.theme-dark .single-blog-posts .single-blog-content .admin li a,
+.theme-dark .sidebar-widget.categories ul li a {
+  color: rgba(255, 255, 255, 0.7);
+}
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .product-review-form .review-comments .review-item .review-report-link:hover, .theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .product-review-form .review-comments .review-item .review-report-link.active, .theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .product-review-form .review-comments .review-item .review-report-link.current,
+.theme-dark .product-details-area .product-details-desc .social-wrap li a i:hover,
+.theme-dark .product-details-area .product-details-desc .social-wrap li a i.active,
+.theme-dark .product-details-area .product-details-desc .social-wrap li a i.current,
+.theme-dark .blog-details-content .blog-top-content .news-content .admin li a:hover,
+.theme-dark .blog-details-content .blog-top-content .news-content .admin li a.active,
+.theme-dark .blog-details-content .blog-top-content .news-content .admin li a.current,
+.theme-dark .team-area.team-area-three .single-team .team-content ul li a i:hover,
+.theme-dark .team-area.team-area-three .single-team .team-content ul li a i.active,
+.theme-dark .team-area.team-area-three .single-team .team-content ul li a i.current,
+.theme-dark .single-blog-posts .single-blog-content .admin li a:hover,
+.theme-dark .single-blog-posts .single-blog-content .admin li a.active,
+.theme-dark .single-blog-posts .single-blog-content .admin li a.current,
+.theme-dark .sidebar-widget.categories ul li a:hover,
+.theme-dark .sidebar-widget.categories ul li a.active,
+.theme-dark .sidebar-widget.categories ul li a.current {
+  color: #e21f36;
+}
+.theme-dark .sidebar-widget.tags ul li a {
+  border: 1px solid #2e2e2e;
+  color: #ffffff;
+}
+.theme-dark .single-solution {
+  border: 1px solid #2e2e2e;
+}
+.theme-dark .user-area-style.recover-password-area .recover,
+.theme-dark .services-sidebar .services-category ul li a,
+.theme-dark .faq-accordion .accordion .accordion-title,
+.theme-dark .form-control, .theme-dark .theme-dark .get-in-touch-form .form-group .form-control,
+.theme-dark .newsletter-form .form-control,
+.theme-dark .get-in-touch-area.get-in-touch-area-two .get-in-touch-form .form-group .form-control,
+.theme-dark .mean-container .mean-nav ul li a,
+.theme-dark .sidebar-widget.recent-post ul li,
+.theme-dark .blog-details-content .tag-list ul li a,
+.theme-dark .product-details-area .products-details-tab .tabs,
+.theme-dark .product-details-area .product-details-desc .price,
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .product-review-form .review-comments .review-item,
+.theme-dark .product-details-area .products-details-tab .tab_content .tabs_item .products-details-tab-content .additional-information li,
+.theme-dark .shopping-cart-area .cart-table table thead tr th,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td,
+.theme-dark .shopping-cart-area .cart-table table thead tr th,
+.theme-dark tbody, .theme-dark td, .theme-dark tfoot, .theme-dark th, .theme-dark thead, .theme-dark tr,
+.theme-dark .checkout-area .cart-totals ul li,
+.theme-dark .counter-area.counter-area-three .single-counter,
+.theme-dark .counter-area.counter-area-three .single-counter i,
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .input-newsletter,
+.theme-dark .product-details-area .product-details-desc .product-add-to-cart .input-counter span.minus-btn,
+.theme-dark .product-details-area .product-details-desc .product-add-to-cart .input-counter span.plus-btn,
+.theme-dark .product-details-area .product-details-desc .product-add-to-cart,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-quantity .input-counter .minus-btn,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-quantity .input-counter .plus-btn,
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .input-newsletter,
+.theme-dark .navbar-area .main-nav nav .navbar-nav .nav-item .dropdown-menu li a {
+  border-color: #2e2e2e;
+}
+.theme-dark .checkout-area .billing-details .form-group label,
+.theme-dark .nice-select .current,
+.theme-dark .checkout-area .cart-totals ul li,
+.theme-dark .faq-accordion .accordion .accordion-content,
+.theme-dark .checkout-area .billing-details .form-check .form-check-label,
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .input-newsletter {
+  color: #ffffff;
+}
+.theme-dark .faq-accordion .accordion .accordion-item,
+.theme-dark .get-in-touch-area.get-in-touch-area-two .get-in-touch-form .form-group .form-control {
+  border: 1px solid #2e2e2e !important;
+}
+.theme-dark .sidebar-widget,
+.theme-dark .showing-result .showing-top-bar-ordering .nice-select,
+.theme-dark .shopping-cart-area .cart-controller,
+.theme-dark .main-contact-area .contact-info,
+.theme-dark .services-sidebar .services-category {
+  box-shadow: none;
+  background-color: transparent;
+  border: 1px solid #2e2e2e;
+}
+.theme-dark .checkout-area .faq-accordion,
+.theme-dark .checkout-area .cart-totals,
+.theme-dark .wishlist,
+.theme-dark .checkout-area .billing-details,
+.theme-dark .shopping-cart-area .cart-table table tbody tr td.product-quantity .input-counter input,
+.theme-dark .product-details-area .product-details-desc .product-add-to-cart .input-counter input,
+.theme-dark .product-details-area .product-details-desc .product-add-to-cart .input-counter,
+.theme-dark .pagination-area .page-numbers {
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid #2e2e2e;
+}
+.theme-dark .order-details .faq-accordion .accordion .accordion-item,
+.theme-dark .order-details .faq-accordion .accordion .accordion-title {
+  border: none !important;
+}
+.theme-dark .coming-soon-area .coming-soon-content form .form-group .input-newsletter {
+  border-bottom: 1px solid #2e2e2e;
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 991px) {
+  .switch-theme-mode {
+    top: 270px;
+  }
+}/*# sourceMappingURL=dark-theme.css.map */

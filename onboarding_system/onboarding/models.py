@@ -1,32 +1,31 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Employee(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class HRManager(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class OnboardingTask(models.Model):
     description = models.CharField(max_length=255)
-    status = models.CharField(max_length=50)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, default='Pending')
+    employee = models.ForeignKey(Employee, related_name='tasks', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.description
 
 class Document(models.Model):
     type = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, default='Pending')
+    employee = models.ForeignKey(Employee, related_name='documents', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.type
@@ -34,16 +33,16 @@ class Document(models.Model):
 class TrainingModule(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=50, default='Pending')
+    employee = models.ForeignKey(Employee, related_name='training_modules', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 class ITSupport(models.Model):
     resource_type = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, default='Pending')
+    employee = models.ForeignKey(Employee, related_name='it_support', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.resource_type
@@ -53,4 +52,4 @@ class Notification(models.Model):
     recipient = models.EmailField()
 
     def __str__(self):
-        return self.recipient
+        return self.message
