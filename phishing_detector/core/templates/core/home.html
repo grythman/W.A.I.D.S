@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to Phishing Detector</h1>
+<p>Use this tool to check emails and URLs for phishing threats.</p>
+<a class="btn btn-primary" href="{% url 'check_email' %}">Check Email</a>
+<a class="btn btn-primary" href="{% url 'check_url' %}">Check URL</a>
+{% endblock %}

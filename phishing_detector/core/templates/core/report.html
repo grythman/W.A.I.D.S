@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+
+{% block title %}Report{% endblock %}
+
+{% block content %}
+<h1>Report</h1>
+<p>{{ report.details }}</p>
+<p>Generated on {{ report.timestamp }}</p>
+{% endblock %}
