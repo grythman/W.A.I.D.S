@@ -1,5 +1,3 @@
-# core/serializers.py
-
 from rest_framework import serializers
 from .models import Patient, Doctor, Appointment, MedicalHistory, Payment
 
@@ -27,4 +25,3 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
-

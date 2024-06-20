@@ -21,5 +21,3 @@ export const getMedicalHistories = async () => {
 export const getPayments = async () => {
     return await axios.get(`${API_URL}payments/`);
 };
-
-// Add more API methods as needed

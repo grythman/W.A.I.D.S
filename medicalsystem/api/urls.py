@@ -1,8 +1,6 @@
-# core/urls.py
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PatientViewSet, DoctorViewSet, AppointmentViewSet, MedicalHistoryViewSet, PaymentViewSet
+from api.views import PatientViewSet, DoctorViewSet, AppointmentViewSet, MedicalHistoryViewSet, PaymentViewSet
 
 router = DefaultRouter()
 router.register(r'patients', PatientViewSet)

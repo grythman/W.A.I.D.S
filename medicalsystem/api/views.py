@@ -1,12 +1,14 @@
-# core/views.py
+# api/views.py
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from .models import Patient, Doctor, Appointment, MedicalHistory, Payment
 from .serializers import PatientSerializer, DoctorSerializer, AppointmentSerializer, MedicalHistorySerializer, PaymentSerializer
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+    permission_classes = [IsAuthenticated] 
 
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctor.objects.all()
