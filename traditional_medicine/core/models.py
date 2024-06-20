@@ -1,36 +1,50 @@
+# core/models.py
+
 from django.db import models
-from django.contrib.auth.models import User
 
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15)
-    address = models.TextField()
-    medical_history = models.TextField()
-    date_of_birth = models.DateField(null=True, blank=True)
-    emergency_contact = models.CharField(max_length=15, null=True, blank=True)
+    name = models.CharField(max_length=255)
+    dob = models.DateField()
+    gender = models.CharField(max_length=10)
+    contact = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
 
 class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    specialty = models.CharField(max_length=100)
-    phone = models.CharField(max_length=15)
+    name = models.CharField(max_length=255)
+    specialty = models.CharField(max_length=255)
+    contact = models.CharField(max_length=255, default="N/A")  # Default value added
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
 
 class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    appointment_date = models.DateTimeField()
-    reason = models.TextField()
+    date = models.DateTimeField()
+    reason = models.CharField(max_length=255)
+    notes = models.TextField()
+
+    def __str__(self):
+        return f"{self.patient.name} with {self.doctor.name} on {self.date}"
+
+class MedicalHistory(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    description = models.TextField()
+    date = models.DateField()
+
+    def __str__(self):
+        return f"{self.patient.name} on {self.date}"
 
 class Payment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_date = models.DateTimeField()
-    payment_method = models.CharField(max_length=50)
+    date = models.DateField()
+    status = models.CharField(max_length=255)
 
-
-class MedicalRecord(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    diagnosis = models.TextField()
-    prescription = models.TextField()
-    visit_date = models.DateTimeField()
-    follow_up_date = models.DateTimeField(null=True, blank=True)
+    def __str__(self):
+        return f"{self.patient.name} - {self.amount} on {self.date}"
