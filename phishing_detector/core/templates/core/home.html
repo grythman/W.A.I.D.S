@@ -1,10 +1,49 @@
-{% extends "core/base.html" %}
-
-{% block title %}Home{% endblock %}
-
-{% block content %}
-<h1>Welcome to Phishing Detector</h1>
-<p>Use this tool to check emails and URLs for phishing threats.</p>
-<a class="btn btn-primary" href="{% url 'check_email' %}">Check Email</a>
-<a class="btn btn-primary" href="{% url 'check_url' %}">Check URL</a>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .btn-custom {
+            margin: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Phishing Detector</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'check_email' %}">Check Email</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'check_url' %}">Check URL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a> <!-- Бүртгэлийн холбоос нэмэх -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container text-center">
+        <h1>Welcome to the Phishing Detector</h1>
+        <p class="lead">A tool to help you detect phishing emails and suspicious URLs.</p>
+        <a href="{% url 'check_email' %}" class="btn btn-primary btn-custom">Check Email</a>
+        <a href="{% url 'check_url' %}" class="btn btn-secondary btn-custom">Check URL</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

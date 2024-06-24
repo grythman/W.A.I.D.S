@@ -1,9 +1,29 @@
-{% extends "core/base.html" %}
-
-{% block title %}Report{% endblock %}
-
-{% block content %}
-<h1>Report</h1>
-<p>{{ report.details }}</p>
-<p>Generated on {{ report.timestamp }}</p>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Report</h1>
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Details:</strong> {{ report.details }}</p>
+                <p><strong>Timestamp:</strong> {{ report.timestamp }}</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

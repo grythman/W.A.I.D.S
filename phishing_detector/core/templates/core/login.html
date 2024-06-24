@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Check URL</title>
+    <title>Login</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -9,7 +9,7 @@
         }
         .container {
             margin-top: 50px;
-            max-width: 600px;
+            max-width: 400px;
         }
         .btn-custom {
             margin-top: 20px;
@@ -19,18 +19,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Check URL</h1>
+        <h1>Login</h1>
         <form method="post">
             {% csrf_token %}
-            <div class="form-group">
-                {{ form.link.label_tag }}
-                {{ form.link }}
-            </div>
-            <div class="form-group">
-                {{ form.domain.label_tag }}
-                {{ form.domain }}
-            </div>
-            <button type="submit" class="btn btn-primary btn-custom">Submit</button>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-custom">Login</button>
         </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

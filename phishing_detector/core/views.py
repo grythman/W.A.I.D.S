@@ -1,43 +1,47 @@
 from django.shortcuts import render, redirect
-from .models import Email, URL, Report
-from .forms import EmailForm, URLForm, RegistrationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
+from .models import Email, URL, Report, PhishingDetector
+from .forms import EmailForm, URLForm, LoginForm, RegisterForm
+from django.contrib.auth.forms import UserCreationForm
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('home')
+    else:
+        form = RegisterForm()
+    return render(request, 'core/register.html', {'form': form})
 
 
 def home(request):
     return render(request, 'core/home.html')
 
-def login_user(request, username, password):
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        # Successful login (implementation depends on your authentication framework)
-        login(request, user)  # Assuming you're using Django's built-in login function
-        return True
-    else:
-        # Invalid credentials
-        return False
-
-def register(request):
+def login_view(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
-            form.save()  # Saves the new user to the database
-            # Optionally, handle successful registration (e.g., redirect to login page)
-            return redirect('login')  # Assuming you have a login URL pattern
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('/')
     else:
-        form = RegistrationForm()
-
-    return render(request, 'core/register.html', {'form': form})
+        form = LoginForm()
+    return render(request, 'core/login.html', {'form': form})
 
 
 def check_email(request):
     if request.method == 'POST':
         form = EmailForm(request.POST)
         if form.is_valid():
-            email = form.save(commit=False)
-            email.is_phishing = detect_phishing(email.content)
-            email.save()
-            return redirect('report', report_id=email.id)
+            email = form.save()
+            is_phishing = PhishingDetector.analyzeEmail(email)
+            report = Report.generateReport(request.user, f'Email analysis result: {is_phishing}')
+            return redirect('report', report_id=report.id)
     else:
         form = EmailForm()
     return render(request, 'core/check_email.html', {'form': form})
@@ -46,10 +50,10 @@ def check_url(request):
     if request.method == 'POST':
         form = URLForm(request.POST)
         if form.is_valid():
-            url = form.save(commit=False)
-            url.is_phishing = detect_phishing(url.link)
-            url.save()
-            return redirect('report', report_id=url.id)
+            url = form.save()
+            is_phishing = PhishingDetector.analyzeURL(url)
+            report = Report.generateReport(request.user, f'URL analysis result: {is_phishing}')
+            return redirect('report', report_id=report.id)
     else:
         form = URLForm()
     return render(request, 'core/check_url.html', {'form': form})
@@ -57,8 +61,3 @@ def check_url(request):
 def report(request, report_id):
     report = Report.objects.get(id=report_id)
     return render(request, 'core/report.html', {'report': report})
-
-def detect_phishing(content):
-    # Here you will use your phishing detection logic.
-    # For now, let's assume it always returns False.
-    return False
