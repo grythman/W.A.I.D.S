@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./internship_log/api"
+    ]
+}
