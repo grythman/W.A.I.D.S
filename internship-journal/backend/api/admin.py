@@ -1,6 +1,12 @@
+# admin.py
 from django.contrib import admin
-from .models import Student, Mentor, JournalEntry
+from .models import Mentor, Student, JournalEntry, Supervisor, Advice
 
-admin.site.register(Student)
+class JournalEntryAdmin(admin.ModelAdmin):
+    list_display = ('student', 'date', 'content')
+
 admin.site.register(Mentor)
-admin.site.register(JournalEntry)
+admin.site.register(Student)
+admin.site.register(JournalEntry, JournalEntryAdmin)
+admin.site.register(Supervisor)
+admin.site.register(Advice)

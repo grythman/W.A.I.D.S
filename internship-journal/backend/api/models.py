@@ -25,8 +25,6 @@ class Mentor(models.Model):
     def get_students(self):
         return self.students.all()
 
-from django.contrib.auth.models import AbstractUser
-from django.db import models
 
 class Student(AbstractUser):
     internship_company = models.CharField(max_length=255)
@@ -48,9 +46,20 @@ class Student(AbstractUser):
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',
     )
-
+ 
     username = models.CharField(max_length=255, default="")
     password = models.CharField(max_length=128, default='temporary_password')
+
+    def register(self, username, password):
+        self.username = username
+        self.password = password
+        self.save()
+    
+    def login(self, username, password):
+        if self.username == username and self.password == password:
+            return True
+        else:
+            return False
 
     def log_activity(self, date, content):
         journal_entry = JournalEntry.objects.create(
@@ -70,9 +79,39 @@ class JournalEntry(models.Model):
     def __str__(self):
         return f"{self.student.username} - {self.date}"
 
+    def add_entry(self, content):
+        JournalEntry.objects.create(user=self, content=content)
+
+    def update_entry(self, entry_id, new_content):
+        journal_entry = JournalEntry.objects.get(id=entry_id, user=self)
+        journal_entry.content = new_content
+        journal_entry.save()
+
+    def delete_entry(self, entry_id):
+        JournalEntry.objects.get(id=entry_id, user=self).delete()
+
     def add_feedback(self, feedback_type, feedback):
         if feedback_type == 'mentor':
             self.mentor_feedback = feedback
         elif feedback_type == 'supervisor':
             self.supervisor_feedback = feedback
         self.save()
+
+class Supervisor(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+
+    def give_advice(self, student, advice):
+        Advice.objects.create(supervisor=self, student=student, advice=advice)
+
+    def monitor_progress(self, student):
+        journal_entries = JournalEntry.objects.filter(user=student)
+        return journal_entries
+    
+class Advice(models.Model):
+    id = models.AutoField(primary_key=True)
+    supervisor = models.ForeignKey('Supervisor', on_delete=models.CASCADE)
+    student = models.ForeignKey('Student', on_delete=models.CASCADE)
+    advice = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -1,26 +1,30 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
+import LoginPage from './components/LoginPage';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Journal from './components/Journal';
 import Feedback from './components/Feedback';
+import StudentList from './components/StudentList';
+import './styles/App.css';
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/journal" component={Journal} />
-          <Route path="/feedback" component={Feedback} />
-          <Route path="/" exact component={Login} />
-        </Switch>
-      </div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/journal" element={<Journal />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/students" element={<StudentList />} />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;

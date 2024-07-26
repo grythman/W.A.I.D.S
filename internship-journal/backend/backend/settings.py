@@ -70,6 +70,12 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  # Inserted line
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
 ROOT_URLCONF = "backend.urls"
 
 TEMPLATES = [
@@ -146,5 +152,9 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    # Add other allowed origins
+]
 CORS_ALLOWS_CREDENTIALS = True
