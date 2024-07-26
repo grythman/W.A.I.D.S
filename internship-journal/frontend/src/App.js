@@ -5,8 +5,6 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Journal from './components/Journal';
 import Feedback from './components/Feedback';
-import './styles/App.css';
-
 
 function App() {
   return (
@@ -18,7 +16,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/journal" component={Journal} />
           <Route path="/feedback" component={Feedback} />
-          <Route path="/" component={Login} />
+          <Route path="/" exact component={Login} />
         </Switch>
       </div>
     </Router>

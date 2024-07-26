@@ -6,23 +6,19 @@ function Journal() {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    async function fetchEntries() {
+    const fetchEntries = async () => {
       const response = await axios.get('/api/journal');
       setEntries(response.data.entries);
-    }
+    };
     fetchEntries();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/journal', { content });
-      if (response.data.success) {
-        setEntries([...entries, response.data.entry]);
-        setContent('');
-      }
-    } catch (error) {
-      console.error('Journal entry failed', error);
+    const response = await axios.post('/api/journal', { content });
+    if (response.data.success) {
+      setEntries([...entries, response.data.entry]);
+      setContent('');
     }
   };
 
@@ -36,14 +32,13 @@ function Journal() {
         </div>
         <button type="submit">Add Entry</button>
       </form>
-      <ul>
-        {entries.map((entry) => (
-          <li key={entry.id}>
-            <p>{entry.date}</p>
-            <p>{entry.content}</p>
-          </li>
+      <div>
+        {entries.map(entry => (
+          <div key={entry.id}>
+            <p>{entry.date}: {entry.content}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
