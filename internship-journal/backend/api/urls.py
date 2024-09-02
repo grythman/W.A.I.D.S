@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
+from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('mentors/', views.MentorList.as_view(), name='mentor_list'),
@@ -68,4 +70,5 @@ urlpatterns = [
     path('profile/journal-entries/unassign/', views.StudentJournalEntryUnassign.as_view(), name='student_journal_entry_unassign'),
     path('profile/supervisors/assign/', views.StudentSupervisorAssign.as_view(), name='student_supervisor_assign'),
     path('profile/supervisors/unassign/', views.StudentSupervisorUnassign.as_view(), name='student_supervisor_unassign'),
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]

@@ -26,10 +26,10 @@ function App() {
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/students" element={<StudentList />} />
-          <Route exact path="/mentors" component={MentorList} />
-          <Route exact path="/mentors/create" component={MentorForm} />
-          <Route exact path="/mentors/:id" component={MentorDetail} />
-          <Route exact path="/mentors/:id/update" component={MentorForm} />
+          <Route path="/mentors" element={<MentorList />} />
+          <Route path="/mentors/create" element={<MentorForm />} />
+          <Route path="/mentors/:id" element={<MentorDetail />} />
+          <Route path="/mentors/:id/update" element={<MentorForm />} />
         </Routes>
       </div>
     </Router>
