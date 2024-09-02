@@ -1,39 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Feedback() {
-  const [studentId, setStudentId] = useState('');
-  const [evaluation, setEvaluation] = useState('');
+    const [adviceList, setAdviceList] = useState([]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(`/api/evaluate/${studentId}`, { evaluation });
-      if (response.data.success) {
-        setStudentId('');
-        setEvaluation('');
-      }
-    } catch (error) {
-      console.error('Evaluation failed', error);
-    }
-  };
+    useEffect(() => {
+        const fetchAdvice = async () => {
+            try {
+                const response = await axios.get('/api/advice/');
+                setAdviceList(response.data);
+            } catch (error) {
+                console.error('Error fetching advice:', error);
+            }
+        };
 
-  return (
-    <div className="feedback">
-      <h2>Evaluate Student</h2>
-      <form onSubmit={handleSubmit}>
+        fetchAdvice();
+    }, []);
+
+    return (
         <div>
-          <label>Student ID:</label>
-          <input type="text" value={studentId} onChange={(e) => setStudentId(e.target.value)} required />
+            <h2>Advice and Feedback</h2>
+            <ul>
+                {adviceList.map(advice => (
+                    <li key={advice.id}>
+                        <strong>{advice.supervisor.name}</strong> to <strong>{advice.student.username}</strong>: {advice.advice}
+                    </li>
+                ))}
+            </ul>
         </div>
-        <div>
-          <label>Evaluation:</label>
-          <textarea value={evaluation} onChange={(e) => setEvaluation(e.target.value)} required />
-        </div>
-        <button type="submit">Submit Evaluation</button>
-      </form>
-    </div>
-  );
+    );
 }
 
 export default Feedback;

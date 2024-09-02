@@ -1,12 +1,14 @@
+// HomePage.js
 import React from 'react';
+import Dashboard from './Dashboard';
 
-const HomePage = () => {
-  return (
-    <div>
-      <h1>Welcome to the Internship Journal System</h1>
-      <p>Track your internship progress, get feedback, and more.</p>
-    </div>
-  );
-};
+function HomePage() {
+    return (
+        <div className="home-page">
+            <h1>Welcome to the Internship Journal Tracking System</h1>
+            <Dashboard />
+        </div>
+    );
+}
 
 export default HomePage;

@@ -1,46 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Journal() {
-  const [entries, setEntries] = useState([]);
-  const [content, setContent] = useState('');
+    const [journalEntries, setJournalEntries] = useState([]);
 
-  useEffect(() => {
-    const fetchEntries = async () => {
-      const response = await axios.get('/api/journal');
-      setEntries(response.data.entries);
-    };
-    fetchEntries();
-  }, []);
+    useEffect(() => {
+        const fetchJournalEntries = async () => {
+            try {
+                const response = await axios.get('/api/journal-entries/');
+                setJournalEntries(response.data);
+            } catch (error) {
+                console.error('Error fetching journal entries:', error);
+            }
+        };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await axios.post('/api/journal', { content });
-    if (response.data.success) {
-      setEntries([...entries, response.data.entry]);
-      setContent('');
-    }
-  };
+        fetchJournalEntries();
+    }, []);
 
-  return (
-    <div className="journal">
-      <h2>Journal</h2>
-      <form onSubmit={handleSubmit}>
+    return (
         <div>
-          <label>Content:</label>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)} required />
+            <h2>Journal Entries</h2>
+            <ul>
+                {journalEntries.map(entry => (
+                    <li key={entry.id}>
+                        <strong>{entry.student.username}</strong> - {entry.date}: {entry.content}
+                    </li>
+                ))}
+            </ul>
         </div>
-        <button type="submit">Add Entry</button>
-      </form>
-      <div>
-        {entries.map(entry => (
-          <div key={entry.id}>
-            <p>{entry.date}: {entry.content}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Journal;
