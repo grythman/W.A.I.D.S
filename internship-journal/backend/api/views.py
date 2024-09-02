@@ -58,8 +58,6 @@ class StudentRegister(APIView):
 
 class StudentLogin(APIView):
     def post(self, request):
-        # Add your login logic here
-        # For example:
         username = request.data.get('username')
         password = request.data.get('password')
         try:
