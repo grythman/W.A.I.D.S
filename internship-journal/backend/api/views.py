@@ -16,11 +16,35 @@ class MentorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mentor.objects.all()
     serializer_class = MentorSerializer
 
+class MentorCreate(generics.CreateAPIView):
+    queryset = Mentor.objects.all()
+    serializer_class = MentorSerializer
+
+class MentorUpdate(generics.UpdateAPIView):
+    queryset = Mentor.objects.all()
+    serializer_class = MentorSerializer
+
+class MentorDelete(generics.DestroyAPIView):
+    queryset = Mentor.objects.all()
+    serializer_class = MentorSerializer
+
 class StudentList(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
 class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentCreate(generics.CreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentUpdate(generics.UpdateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentDelete(generics.DestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
@@ -32,6 +56,18 @@ class JournalEntryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = JournalEntry.objects.all()
     serializer_class = JournalEntrySerializer
 
+class JournalEntryCreate(generics.CreateAPIView):
+    queryset = JournalEntry.objects.all()
+    serializer_class = JournalEntrySerializer
+
+class JournalEntryUpdate(generics.UpdateAPIView):
+    queryset = JournalEntry.objects.all()
+    serializer_class = JournalEntrySerializer
+
+class JournalEntryDelete(generics.DestroyAPIView):
+    queryset = JournalEntry.objects.all()
+    serializer_class = JournalEntrySerializer
+
 class SupervisorList(generics.ListCreateAPIView):
     queryset = Supervisor.objects.all()
     serializer_class = SupervisorSerializer
@@ -40,11 +76,35 @@ class SupervisorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Supervisor.objects.all()
     serializer_class = SupervisorSerializer
 
+class SupervisorCreate(generics.CreateAPIView):
+    queryset = Supervisor.objects.all()
+    serializer_class = SupervisorSerializer
+
+class SupervisorUpdate(generics.UpdateAPIView):
+    queryset = Supervisor.objects.all()
+    serializer_class = SupervisorSerializer
+
+class SupervisorDelete(generics.DestroyAPIView):
+    queryset = Supervisor.objects.all()
+    serializer_class = SupervisorSerializer
+
 class AdviceList(generics.ListCreateAPIView):
     queryset = Advice.objects.all()
     serializer_class = AdviceSerializer
 
 class AdviceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Advice.objects.all()
+    serializer_class = AdviceSerializer
+
+class AdviceCreate(generics.CreateAPIView):
+    queryset = Advice.objects.all()
+    serializer_class = AdviceSerializer
+
+class AdviceUpdate(generics.UpdateAPIView):
+    queryset = Advice.objects.all()
+    serializer_class = AdviceSerializer
+
+class AdviceDelete(generics.DestroyAPIView):
     queryset = Advice.objects.all()
     serializer_class = AdviceSerializer
 
