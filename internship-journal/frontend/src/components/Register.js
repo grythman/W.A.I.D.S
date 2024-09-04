@@ -1,24 +1,21 @@
+// src/components/Register.js
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Register() {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [internshipCompany, setInternshipCompany] = useState('');
-    const [internshipStartDate, setInternshipStartDate] = useState('');
-    const [internshipEndDate, setInternshipEndDate] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/register/', { username, password, internship_company: internshipCompany, internship_start_date: internshipStartDate, internship_end_date: internshipEndDate });
-            if (response.status === 201) {
-                navigate('/login');
-            }
+            await axios.post('/api/register/', { name, email, password });
+            navigate('/login');
         } catch (error) {
-            console.error('Error registering:', error);
+            console.error('Registration failed', error);
         }
     };
 
@@ -26,26 +23,27 @@ function Register() {
         <div>
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </label>
-                <label>
-                    Internship Company:
-                    <input type="text" value={internshipCompany} onChange={(e) => setInternshipCompany(e.target.value)} />
-                </label>
-                <label>
-                    Start Date:
-                    <input type="date" value={internshipStartDate} onChange={(e) => setInternshipStartDate(e.target.value)} />
-                </label>
-                <label>
-                    End Date:
-                    <input type="date" value={internshipEndDate} onChange={(e) => setInternshipEndDate(e.target.value)} />
-                </label>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Name"
+                    required
+                />
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    required
+                />
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
+                />
                 <button type="submit">Register</button>
             </form>
         </div>

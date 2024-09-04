@@ -1,26 +1,24 @@
 // src/components/MentorList.js
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const MentorList = () => {
+function MentorList() {
     const [mentors, setMentors] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/mentors/')
-            .then(response => {
-                setMentors(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the mentors!', error);
-            });
+        const fetchMentors = async () => {
+            const response = await axios.get('/api/mentors/');
+            setMentors(response.data);
+        };
+        fetchMentors();
     }, []);
 
     return (
         <div>
-            <h1>Mentors</h1>
+            <h2>Mentors</h2>
             <ul>
-                {mentors.map(mentor => (
+                {mentors.map((mentor) => (
                     <li key={mentor.id}>
                         <Link to={`/mentors/${mentor.id}`}>{mentor.name}</Link>
                     </li>
@@ -29,6 +27,6 @@ const MentorList = () => {
             <Link to="/mentors/create">Add Mentor</Link>
         </div>
     );
-};
+}
 
 export default MentorList;

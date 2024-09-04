@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react';
+// src/components/Feedback.js
+import React, { useState } from 'react';
 import axios from 'axios';
 
 function Feedback() {
-    const [adviceList, setAdviceList] = useState([]);
+    const [content, setContent] = useState('');
 
-    useEffect(() => {
-        const fetchAdvice = async () => {
-            try {
-                const response = await axios.get('/api/advice/');
-                setAdviceList(response.data);
-            } catch (error) {
-                console.error('Error fetching advice:', error);
-            }
-        };
-
-        fetchAdvice();
-    }, []);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('/api/feedback/', { content });
+            setContent('');
+        } catch (error) {
+            console.error('Failed to submit feedback', error);
+        }
+    };
 
     return (
         <div>
-            <h2>Advice and Feedback</h2>
-            <ul>
-                {adviceList.map(advice => (
-                    <li key={advice.id}>
-                        <strong>{advice.supervisor.name}</strong> to <strong>{advice.student.username}</strong>: {advice.advice}
-                    </li>
-                ))}
-            </ul>
+            <h2>Feedback</h2>
+            <form onSubmit={handleSubmit}>
+                <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Your feedback"
+                    required
+                ></textarea>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     );
 }

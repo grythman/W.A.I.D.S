@@ -1,12 +1,11 @@
-// HomePage.js
+// src/components/HomePage.js
 import React from 'react';
-import Dashboard from './Dashboard';
 
 function HomePage() {
     return (
-        <div className="home-page">
-            <h1>Welcome to the Internship Journal Tracking System</h1>
-            <Dashboard />
+        <div>
+            <h1>Welcome to the Internship Management System</h1>
+            <p>This is the homepage.</p>
         </div>
     );
 }

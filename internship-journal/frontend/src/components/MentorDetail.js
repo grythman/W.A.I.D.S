@@ -1,32 +1,40 @@
 // src/components/MentorDetail.js
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
 
-const MentorDetail = () => {
+function MentorDetail() {
     const { id } = useParams();
     const [mentor, setMentor] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`/api/mentors/${id}/`)
-            .then(response => {
-                setMentor(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the mentor!', error);
-            });
+        const fetchMentor = async () => {
+            const response = await axios.get(`/api/mentors/${id}/`);
+            setMentor(response.data);
+        };
+        fetchMentor();
     }, [id]);
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`/api/mentors/${id}/`);
+            navigate('/mentors');
+        } catch (error) {
+            console.error('Failed to delete mentor', error);
+        }
+    };
 
     if (!mentor) return <div>Loading...</div>;
 
     return (
         <div>
-            <h1>{mentor.name}</h1>
-            <p>Email: {mentor.email}</p>
-            <Link to={`/mentors/${mentor.id}/update`}>Edit</Link>
-            <Link to={`/mentors/${mentor.id}/delete`}>Delete</Link>
+            <h2>{mentor.name}</h2>
+            <p>{mentor.description}</p>
+            <button onClick={() => navigate(`/mentors/${id}/update`)}>Edit</button>
+            <button onClick={handleDelete}>Delete</button>
         </div>
     );
-};
+}
 
 export default MentorDetail;
