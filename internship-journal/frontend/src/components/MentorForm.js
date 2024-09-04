@@ -1,60 +1,36 @@
-// src/components/MentorForm.js
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { createMentor } from '../services/api';
 
-function MentorForm() {
-    const { id } = useParams();
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const navigate = useNavigate();
+const MentorForm = ({ setMentors }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        if (id) {
-            const fetchMentor = async () => {
-                const response = await axios.get(`/api/mentors/${id}/`);
-                setName(response.data.name);
-                setDescription(response.data.description);
-            };
-            fetchMentor();
-        }
-    }, [id]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newMentor = { name, email };
+    const response = await createMentor(newMentor);
+    setMentors((prev) => [...prev, response.data]);
+    setName('');
+    setEmail('');
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            if (id) {
-                await axios.put(`/api/mentors/${id}/`, { name, description });
-            } else {
-                await axios.post('/api/mentors/create/', { name, description });
-            }
-            navigate('/mentors');
-        } catch (error) {
-            console.error('Failed to save mentor', error);
-        }
-    };
-
-    return (
-        <div>
-            <h2>{id ? 'Update Mentor' : 'Create Mentor'}</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    required
-                />
-                <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description"
-                    required
-                ></textarea>
-                <button type="submit">{id ? 'Update' : 'Create'}</button>
-            </form>
-        </div>
-    );
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button type="submit">Add Mentor</button>
+    </form>
+  );
+};
 
 export default MentorForm;

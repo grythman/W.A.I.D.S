@@ -1,37 +1,14 @@
-/* App.css */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #eef2f5;
-  margin: 0;
-  padding: 0;
+.App-header nav {
+  margin-top: 20px;
 }
 
-.navbar {
-  background-color: #333;
-  padding: 10px;
-}
-
-.navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-.navbar li {
-  display: inline;
-}
-
-.navbar a {
-  color: white;
+.App-header nav a {
+  margin: 0 15px;
   text-decoration: none;
-  padding: 14px 20px;
-  display: block;
+  color: white;
+  font-size: 1.2em;
 }
 
-.navbar a:hover {
-  background-color: #575757;
+.App-header nav a:hover {
+  text-decoration: underline;
 }
-
-

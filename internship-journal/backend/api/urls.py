@@ -2,7 +2,6 @@ from django.urls import path, re_path
 from . import views
 from django.views.generic import TemplateView
 
-
 urlpatterns = [
     path('mentors/', views.MentorList.as_view(), name='mentor_list'),
     path('mentors/<int:pk>/', views.MentorDetail.as_view(), name='mentor_detail'),
@@ -55,20 +54,5 @@ urlpatterns = [
     path('profile/advice/create/', views.StudentAdviceCreate.as_view(), name='student_advice_create'),
     path('profile/advice/<int:pk>/update/', views.StudentAdviceUpdate.as_view(), name='student_advice_update'),
     path('profile/advice/<int:pk>/delete/', views.StudentAdviceDelete.as_view(), name='student_advice_delete'),
-    path('profile/supervisors/', views.StudentSupervisorList.as_view(), name='student_supervisor_list'),
-    path('profile/supervisors/<int:pk>/', views.StudentSupervisorDetail.as_view(), name='student_supervisor_detail'),
-    path('profile/supervisors/create/', views.StudentSupervisorCreate.as_view(), name='student_supervisor_create'),
-    path('profile/supervisors/<int:pk>/update/', views.StudentSupervisorUpdate.as_view(), name='student_supervisor_update'),
-    path('profile/supervisors/<int:pk>/delete/', views.StudentSupervisorDelete.as_view(), name='student_supervisor_delete'),
-    path('profile/supervisors/assign/', views.StudentSupervisorAssign.as_view(), name='student_supervisor_assign'),
-    path('profile/supervisors/unassign/', views.StudentSupervisorUnassign.as_view(), name='student_supervisor_unassign'),
-    path('profile/mentors/assign/', views.StudentMentorAssign.as_view(), name='student_mentor_assign'),
-    path('profile/mentors/unassign/', views.StudentMentorUnassign.as_view(), name='student_mentor_unassign'),
-    path('profile/advice/assign/', views.StudentAdviceAssign.as_view(), name='student_advice_assign'),
-    path('profile/advice/unassign/', views.StudentAdviceUnassign.as_view(), name='student_advice_unassign'),
-    path('profile/journal-entries/assign/', views.StudentJournalEntryAssign.as_view(), name='student_journal_entry_assign'),
-    path('profile/journal-entries/unassign/', views.StudentJournalEntryUnassign.as_view(), name='student_journal_entry_unassign'),
-    path('profile/supervisors/assign/', views.StudentSupervisorAssign.as_view(), name='student_supervisor_assign'),
-    path('profile/supervisors/unassign/', views.StudentSupervisorUnassign.as_view(), name='student_supervisor_unassign'),
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='home')
 ]
