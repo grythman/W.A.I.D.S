@@ -1,14 +1,53 @@
-.App-header nav {
-  margin-top: 20px;
+/* src/App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.App-header nav a {
-  margin: 0 15px;
-  text-decoration: none;
+header {
+  background-color: #333;
   color: white;
-  font-size: 1.2em;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.App-header nav a:hover {
-  text-decoration: underline;
+header .logo h1 {
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.main-banner {
+  background-color: #f4f4f4;
+  padding: 50px;
+  text-align: center;
+}
+
+.features, .testimonials, .statistics {
+  padding: 20px;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }

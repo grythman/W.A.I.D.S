@@ -1,35 +1,24 @@
+// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './components/HomePage';
-import MentorList from './components/MentorList';
-import StudentList from './components/StudentList';
-import JournalEntryList from './components/JournalEntryList';
+import Header from './components/Header';
+import MainBanner from './components/MainBanner';
+import Features from './components/Features';
+import Testimonials from './components/Testimonials';
+import Statistics from './components/Statistics';
+import Footer from './components/Footer';
 import './styles/App.css';
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <h1>Internship Management System</h1>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/mentors">Mentors</Link>
-            <Link to="/students">Students</Link>
-            <Link to="/journal-entries">Journal Entries</Link>
-          </nav>
-        </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/mentors" element={<MentorList />} />
-            <Route path="/students" element={<StudentList />} />
-            <Route path="/journal-entries" element={<JournalEntryList />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
-  );
+    return (
+        <div className="App">
+            <Header />
+            <MainBanner />
+            <Features />
+            <Testimonials />
+            <Statistics />
+            <Footer />
+        </div>
+    );
 }
 
 export default App;
