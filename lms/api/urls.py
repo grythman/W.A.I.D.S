@@ -1,44 +1,52 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import GetCourseView, ShowCourseView, StoreCourseView, EnrollCourseView, GetCategoriesView, CompleteLectureView, StoreLessonView, StoreLectureView, StoreFilesView, StoreQuestionsView, StoreUserView, GetUserView, MyCoursesView, EditCourseView, UpdateCourseImageView, UpdateCourseInstructorAvatarView, StoreAnswerView, UpdateCorrectAnswerView, CompleteCourseView, SearchCourseView, RemoveCourseView
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from .views import (
+    GetCourseView, ShowCourseView, StoreCourseView, EnrollCourseView, GetCategoriesView, 
+    CompleteLectureView, StoreLessonView, StoreLectureView, StoreFilesView, StoreQuestionsView, 
+    StoreUserView, GetUserView, MyCoursesView, EditCourseView, UpdateCourseImageView, 
+    UpdateCourseInstructorAvatarView, StoreAnswerView, UpdateCorrectAnswerView, CompleteCourseView, 
+    SearchCourseView, RemoveCourseView
+)
 
-
-urlpatterns = {
-    url(r'^signIn', obtain_jwt_token),
-    url(r'^signUp', StoreUserView.as_view(), name='storeUser'),
-    url(r'^getUser/$', GetUserView.as_view(), name='getUser'),
-    url(r'^getCourses/(?P<category>(\d+))/(?P<count>(\d+))/(?P<page>(\d+))/$', GetCourseView.as_view(), name='getCourse'),
-    url(r'^myCourses/(?P<category>(\d+))/(?P<count>(\d+))/(?P<page>(\d+))/$', MyCoursesView.as_view(), name='myCourses'),
-    url(r'^searchCourse/(?P<count>(\d+))/(?P<page>(\d+))/$', SearchCourseView.as_view(), name='searchCourse'),
-    url(r'^storeCourse', StoreCourseView.as_view(), name='storeCourse'),
-    url(r'^editCourse/(?P<id>(\d+))/$', EditCourseView.as_view(), name='editCourse'),
-    url(r'^updateCourse/(?P<id>(\d+))/$', StoreCourseView.as_view(), name='updateCourse'),
-    url(r'^updateCourseImage/(?P<id>(\d+))/$', UpdateCourseImageView.as_view(), name='updateCourseImage'),
-    url(r'^updateCourseInstructorAvatar/(?P<id>(\d+))/$', UpdateCourseInstructorAvatarView.as_view(), name='updateCouseInstructorAvatar'),
-    url(r'^deleteCourse/(?P<id>(\d+))/$', RemoveCourseView.as_view(), name='deleteCourse'),
-    url(r'^showCourse/(?P<id>(\d+))/$', ShowCourseView.as_view(), name='showCourse'),
-    url(r'^enrollCourse/(?P<id>(\d+))/$', EnrollCourseView.as_view(), name='enrollCourse'),
-    url(r'^completeLecture/$', CompleteLectureView.as_view(), name='completeLecture'),
-    url(r'^completeCourse/$', CompleteCourseView.as_view(), name='completeCourse'),
-    url(r'^storeLesson', StoreLessonView.as_view(), name='storeLesson'),
-    url(r'^updateLesson/(?P<id>(\d+))/$', StoreLessonView.as_view(), name='updateLesson'),
-    url(r'^deleteLesson/(?P<id>(\d+))/$', StoreLessonView.as_view(), name='deleteLesson'),
-    url(r'^storeLecture', StoreLectureView.as_view(), name='storeLecture'),
-    url(r'^updateLecture/(?P<id>(\d+))/$', StoreLectureView.as_view(), name='updateLecture'),
-    url(r'^deleteLecture/(?P<id>(\d+))/$', StoreLectureView.as_view(), name='deleteLecture'),
-    url(r'^storeFiles', StoreFilesView.as_view(), name='storeFiles'),
-    url(r'^deleteFile/(?P<id>(\d+))/$', StoreFilesView.as_view(), name='deleteFile'),
-    url(r'^storeQuestion', StoreQuestionsView.as_view(), name='storeQuestion'),
-    url(r'^updateQuestion/(?P<id>(\d+))/$', StoreQuestionsView.as_view(), name='updateQuestion'),
-    url(r'^deleteQuestion/(?P<id>(\d+))/$', StoreQuestionsView.as_view(), name='deleteQuestion'),
-    url(r'^storeAnswer/$', StoreAnswerView.as_view(), name='storeAnswer'),
-    url(r'^updateAnswer/(?P<id>(\d+))/$', StoreAnswerView.as_view(), name='updateAnswer'),
-    url(r'^updateCorrectAnswer/(?P<lid>(\d+))/(?P<aid>(\d+))/$', UpdateCorrectAnswerView.as_view(), name='updateCorrectAnswer'),
-    url(r'^deleteAnswer/(?P<id>(\d+))/$', StoreAnswerView.as_view(), name='deleteAnswer'),
-    url(r'^getCategories/$', GetCategoriesView.as_view(), name='getCategories'),
-    url(r'^payments/', include('djstripe.urls', namespace="djstripe")),
-
-}
+urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('signUp', StoreUserView.as_view(), name='storeUser'),
+    path('getUser/', GetUserView.as_view(), name='getUser'),
+    path('getCourses/<int:category>/<int:count>/<int:page>/', GetCourseView.as_view(), name='getCourse'),
+    path('myCourses/<int:category>/<int:count>/<int:page>/', MyCoursesView.as_view(), name='myCourses'),
+    path('searchCourse/<int:count>/<int:page>/', SearchCourseView.as_view(), name='searchCourse'),
+    path('storeCourse', StoreCourseView.as_view(), name='storeCourse'),
+    path('editCourse/<int:id>/', EditCourseView.as_view(), name='editCourse'),
+    path('updateCourse/<int:id>/', StoreCourseView.as_view(), name='updateCourse'),
+    path('updateCourseImage/<int:id>/', UpdateCourseImageView.as_view(), name='updateCourseImage'),
+    path('updateCourseInstructorAvatar/<int:id>/', UpdateCourseInstructorAvatarView.as_view(), name='updateCouseInstructorAvatar'),
+    path('deleteCourse/<int:id>/', RemoveCourseView.as_view(), name='deleteCourse'),
+    path('showCourse/<int:id>/', ShowCourseView.as_view(), name='showCourse'),
+    path('enrollCourse/<int:id>/', EnrollCourseView.as_view(), name='enrollCourse'),
+    path('completeLecture/', CompleteLectureView.as_view(), name='completeLecture'),
+    path('completeCourse/', CompleteCourseView.as_view(), name='completeCourse'),
+    path('storeLesson', StoreLessonView.as_view(), name='storeLesson'),
+    path('updateLesson/<int:id>/', StoreLessonView.as_view(), name='updateLesson'),
+    path('deleteLesson/<int:id>/', StoreLessonView.as_view(), name='deleteLesson'),
+    path('storeLecture', StoreLectureView.as_view(), name='storeLecture'),
+    path('updateLecture/<int:id>/', StoreLectureView.as_view(), name='updateLecture'),
+    path('deleteLecture/<int:id>/', StoreLectureView.as_view(), name='deleteLecture'),
+    path('storeFiles', StoreFilesView.as_view(), name='storeFiles'),
+    path('deleteFile/<int:id>/', StoreFilesView.as_view(), name='deleteFile'),
+    path('storeQuestion', StoreQuestionsView.as_view(), name='storeQuestion'),
+    path('updateQuestion/<int:id>/', StoreQuestionsView.as_view(), name='updateQuestion'),
+    path('deleteQuestion/<int:id>/', StoreQuestionsView.as_view(), name='deleteQuestion'),
+    path('storeAnswer/', StoreAnswerView.as_view(), name='storeAnswer'),
+    path('updateAnswer/<int:id>/', StoreAnswerView.as_view(), name='updateAnswer'),
+    path('updateCorrectAnswer/<int:lid>/<int:aid>/', UpdateCorrectAnswerView.as_view(), name='updateCorrectAnswer'),
+    path('deleteAnswer/<int:id>/', StoreAnswerView.as_view(), name='deleteAnswer'),
+    path('getCategories/', GetCategoriesView.as_view(), name='getCategories'),
+    path('payments/', include('djstripe.urls', namespace="djstripe")),
+]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

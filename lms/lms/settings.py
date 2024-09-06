@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'django-insecure-&i3kz2tb^cl#a(s^=xe+gs0ollpxl*5^n2&o&mah%+x&ms4xi('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,9 +69,9 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 6
@@ -110,9 +110,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lmss',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '0x2C900#',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'unix_socket': '/var/run/mysqld/mysqld.sock',  # Update with the correct socket path
+        },
     }
 }
 
@@ -155,3 +158,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/public/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# settings.py
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
