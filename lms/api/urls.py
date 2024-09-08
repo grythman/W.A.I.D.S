@@ -1,19 +1,25 @@
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt import views as jwt_views
+from .views import  # Ensure these views are correctly imported
+
 from .views import (
     GetCourseView, ShowCourseView, StoreCourseView, EnrollCourseView, GetCategoriesView, 
     CompleteLectureView, StoreLessonView, StoreLectureView, StoreFilesView, StoreQuestionsView, 
     StoreUserView, GetUserView, MyCoursesView, EditCourseView, UpdateCourseImageView, 
     UpdateCourseInstructorAvatarView, StoreAnswerView, UpdateCorrectAnswerView, CompleteCourseView, 
-    SearchCourseView, RemoveCourseView
+    SearchCourseView, RemoveCourseView, SignInView, SignUpView 
 )
 
 urlpatterns = [
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('signIn/', TokenObtainPairView.as_view(), name='signIn'),
-    path('signUp/', StoreUserView.as_view(), name='storeUser'),
+     path('token/', 
+         jwt_views.TokenObtainPairView.as_view(), 
+         name='token_obtain_pair'),
+    path('token/refresh/', 
+         jwt_views.TokenRefreshView.as_view(), 
+         name='token_refresh'),
+    path('signIn/', SignInView.as_view(), name='signIn'),
+    path('signUp/', SignUpView.as_view(), name='signUp'),
     path('getUser/', GetUserView.as_view(), name='getUser'),
     path('getCourses/<int:category>/<int:count>/<int:page>/', GetCourseView.as_view(), name='getCourse'),
     path('myCourses/<int:category>/<int:count>/<int:page>/', MyCoursesView.as_view(), name='myCourses'),

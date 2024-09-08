@@ -7,7 +7,6 @@ from .models import Course, Lesson, Lecture, Category, File, Question, Answer, C
 from django.contrib.auth.models import User
 import stripe
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from rest_framework_simplejwt.tokens import RefreshToken
