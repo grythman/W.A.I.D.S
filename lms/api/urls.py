@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('signUp', StoreUserView.as_view(), name='storeUser'),
+    path('signIn', TokenObtainPairView.as_view(), name='signIn'),
     path('getUser/', GetUserView.as_view(), name='getUser'),
     path('getCourses/<int:category>/<int:count>/<int:page>/', GetCourseView.as_view(), name='getCourse'),
     path('myCourses/<int:category>/<int:count>/<int:page>/', MyCoursesView.as_view(), name='myCourses'),
