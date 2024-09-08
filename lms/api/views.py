@@ -7,7 +7,61 @@ from .models import Course, Lesson, Lecture, Category, File, Question, Answer, C
 from django.contrib.auth.models import User
 import stripe
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
+class GetProfileView(APIView):
+    
+        def get(self, request):
+            if not request.user.is_authenticated:
+                return Response({"error":"You are not logged in."})
+    
+            profile = Profile.objects.filter(userID=request.user.id).values('id', 'userID', 'name', 'avatar_thumbnail', 'roleID')
+            if profile:
+                result = {"profile":profile[0]}
+            else:
+                result = {"error":"Profile not found."}
+    
+            return Response(result)
+
+class GetInstructorView(APIView):
+        
+            def get(self, request, id):
+                instructor = Profile.objects.filter(userID=id).values('id', 'userID', 'name', 'avatar_thumbnail', 'roleID')
+                if instructor:
+                    courses = Course.objects.filter(userID=id, archive=0).values('id', 'courseName', 'courseCategory', 'courseSummary', 'courseImage')
+                    result = {"instructor":instructor[0], "courses":courses}
+                else:
+                    result = {"error":"Instructor not found."}
+        
+                return Response(result)
+
+class StoreProfileView(APIView):
+    
+        def post(self, request):
+            if not request.user.is_authenticated:
+                return Response({"error":"You are not logged in."})
+    
+            profile = Profile.objects.filter(userID=request.user.id).values('id')
+            if profile:
+                profile = Profile.objects.filter(userID=request.user.id).update(
+                    name = request.POST.get('name'),
+                    avatar = request.FILES['avatar']
+                )
+            else:
+                profile = Profile(
+                    userID = request.user.id,
+                    name = request.POST.get('name'),
+                    avatar = request.FILES['avatar']
+                )
+                profile.save()
+    
+            result = {"success":"Profile Updated"}
+            return Response(result)
 class GetCourseView(APIView):
 
     def get(self, request, category, count, page):
@@ -1002,7 +1056,7 @@ class StoreUserView(APIView):
         email = request.POST.get('email')
         password = request.POST.get('password')
         sub = email[:2]
-        avatar = 'https://invatar0.appspot.com/svg/'+sub+'.jpg'
+        avatar = f'https://avatars.dicebear.com/api/initials/{sub}.svg'
 
         user = User.objects.create_user(
             password = password,
@@ -1026,6 +1080,33 @@ class StoreUserView(APIView):
 
         result = {'success': 'Thanks for Signing Up!'}
         return Response(result)
+
+class UpdateUserView(APIView):
+    
+        def put(self, request):
+            if not request.user.is_authenticated:
+                return Response({"error":"You are not logged in."})
+    
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            sub = email[:2]
+            avatar = f'https://avatars.dicebear.com/api/initials/{sub}.svg'
+    
+            user = User.objects.filter(id=request.user.id).update(
+                username = email,
+                email = email,
+                password = password
+            )
+    
+            profile = Profile.objects.filter(userID=request.user.id).update(
+                name = name,
+                avatar_thumbnail = avatar
+            )
+    
+            result = {'success': 'Profile Updated'}
+            return Response(result)
+
 
 class GetUserView(APIView):
 
