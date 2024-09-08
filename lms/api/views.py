@@ -41,27 +41,27 @@ class GetInstructorView(APIView):
                 return Response(result)
 
 class StoreProfileView(APIView):
-    
-        def post(self, request):
-            if not request.user.is_authenticated:
-                return Response({"error":"You are not logged in."})
-    
-            profile = Profile.objects.filter(userID=request.user.id).values('id')
-            if profile:
-                profile = Profile.objects.filter(userID=request.user.id).update(
-                    name = request.POST.get('name'),
-                    avatar = request.FILES['avatar']
-                )
-            else:
-                profile = Profile(
-                    userID = request.user.id,
-                    name = request.POST.get('name'),
-                    avatar = request.FILES['avatar']
-                )
-                profile.save()
-    
-            result = {"success":"Profile Updated"}
-            return Response(result)
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return Response({"error": "You are not logged in."})
+
+        profile = Profile.objects.filter(user=request.user.id).values('id')
+        if profile:
+            profile = Profile.objects.filter(user=request.user.id).update(
+                name=request.POST.get('name'),
+                avatar=request.FILES['avatar']
+            )
+        else:
+            profile = Profile(
+                user=request.user,
+                name=request.POST.get('name'),
+                avatar=request.FILES['avatar']
+            )
+            profile.save()
+
+        result = {"success": "Profile Updated"}
+        return Response(result)
+
 class GetCourseView(APIView):
 
     def get(self, request, category, count, page):
@@ -1050,36 +1050,40 @@ class SearchCourseView(APIView):
 
 
 class StoreUserView(APIView):
-
-    def post(self, request):
-        name = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        sub = email[:2]
-        avatar = f'https://avatars.dicebear.com/api/initials/{sub}.svg'
-
-        user = User.objects.create_user(
-            password = password,
-            is_superuser = 0,
-            username = email,
-            first_name = 'firstName',
-            last_name = 'lastName',
-            email = email,
-            is_staff = 0,
-            is_active = 1
-        )
-        user.save()
-
-        profile = Profile(
-            userID = user.id,
-            name = name,
-            roleID = 2,
-            avatar_thumbnail = avatar
-        )
-        profile.save()
-
-        result = {'success': 'Thanks for Signing Up!'}
-        return Response(result)
+        
+            def post(self, request):
+                name = request.POST.get('username')
+                email = request.POST.get('email')
+                password = request.POST.get('password')
+                sub = email[:2]
+                avatar = f'https://avatars.dicebear.com/api/initials/{sub}.svg'
+        
+                user = User.objects.create_user(
+                    password=password,
+                    is_superuser=0,
+                    username=email,
+                    first_name='firstName',
+                    last_name='lastName',
+                    email=email,
+                    is_staff=0,
+                    is_active=1
+                )
+                user.save()
+        
+                # Assuming roleID 2 corresponds to a specific role, fetch that role instance
+                role = Role.objects.get(id=2)
+        
+                profile = Profile(
+                    user=user,
+                    name=name,
+                    role=role,
+                    avatar_thumbnail=avatar
+                )
+                profile.save()
+        
+                result = {'success': 'Thanks for Signing Up!'}
+                return Response(result)
+        
 
 class UpdateUserView(APIView):
     
