@@ -41,7 +41,7 @@ export default class Home extends React.PureComponent {
 
   getCourses = () => {
 
-    fetch("http://houseofhackers.me:81/getCourses/0/6/1/", {
+    fetch("http://localhost:8000/getCourses/0/6/1/", {
       method:'GET',
     })
     .then(function(response) {
@@ -77,7 +77,7 @@ export default class Home extends React.PureComponent {
                 <Link className="lmsHomeMainBlock" key={index} to={'/course/'+course.id}>
                   <Card style={{height:'385px'}}>
                     <CardMedia style={{width:'100%', height:'240px', overflow:'hidden', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                      <img src={'http://houseofhackers.me/media/' + course.courseImage} />
+                      <img src={'http://localhost:8000/media/' + course.courseImage} />
                     </CardMedia>
                     <CardTitle title={course.courseName} subtitle={course.courseSummary} />
                   </Card>

@@ -69,7 +69,7 @@ export default class New extends React.PureComponent {
   }
 
   getCourse = (id) => {
-    fetch("http://houseofhackers.me:81/editCourse/"+id+"/", {
+    fetch("http://localhost:8000/editCourse/"+id+"/", {
       method:'GET',
       headers:{'Authorization': 'JWT '+this.state.app.state.token}
     })
@@ -130,8 +130,8 @@ export default class New extends React.PureComponent {
           courseInformation: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(json.course.courseInformation))),
           courseInstructorName:json.course.courseInstructorName,
           courseInstructorInfo:json.course.courseInstructorInfo,
-          courseInstructorAvatarPreview:'http://houseofhackers.me:81/media/' + json.course.courseInstructorAvatar,
-          courseImagePreview:'http://houseofhackers.me:81/media/' + json.course.courseImage,
+          courseInstructorAvatarPreview:'http://localhost:8000/media/' + json.course.courseInstructorAvatar,
+          courseImagePreview:'http://localhost:8000/media/' + json.course.courseImage,
           coursePrice:json.course.coursePrice,
           courseStatus:json.course.courseStatus,
           lessons:lessons
@@ -143,7 +143,7 @@ export default class New extends React.PureComponent {
   }
 
   getCategories = () => {
-    fetch("http://houseofhackers.me:81/getCategories/", {
+    fetch("http://localhost:8000/getCategories/", {
       method:'GET'
     })
     .then(function(response) {
@@ -321,7 +321,7 @@ export default class New extends React.PureComponent {
       data.append('questionContent', "");
       data.append('questionType', type);
 
-      fetch("http://houseofhackers.me:81/storeQuestion/", {
+      fetch("http://localhost:8000/storeQuestion/", {
         method:'POST',
         body:data,
         headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -359,7 +359,7 @@ export default class New extends React.PureComponent {
 
     data.append('questionContent', event.target.value);
 
-    fetch("http://houseofhackers.me:81/updateQuestion/"+id+"/", {
+    fetch("http://localhost:8000/updateQuestion/"+id+"/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -396,7 +396,7 @@ export default class New extends React.PureComponent {
       data.append('answerContent', "");
       data.append('isCorrect', false);
 
-      fetch("http://houseofhackers.me:81/storeAnswer/", {
+      fetch("http://localhost:8000/storeAnswer/", {
         method:'POST',
         body:data,
         headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -432,7 +432,7 @@ export default class New extends React.PureComponent {
 
     data.append('answerContent', event.target.value);
 
-    fetch("http://houseofhackers.me:81/updateAnswer/" + id + "/", {
+    fetch("http://localhost:8000/updateAnswer/" + id + "/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -508,7 +508,7 @@ export default class New extends React.PureComponent {
     data.append('coursePrice', coursePrice);
     data.append('courseStatus', courseStatus);
 
-    fetch("http://houseofhackers.me:81/updateCourse/"+this.props.match.params.id+"/", {
+    fetch("http://localhost:8000/updateCourse/"+this.props.match.params.id+"/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -539,7 +539,7 @@ export default class New extends React.PureComponent {
 
     data.append('courseImage', this.state.courseImage);
 
-    fetch("http://houseofhackers.me:81/updateCourseImage/"+this.props.match.params.id+"/", {
+    fetch("http://localhost:8000/updateCourseImage/"+this.props.match.params.id+"/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -570,7 +570,7 @@ export default class New extends React.PureComponent {
 
     data.append('courseInstructorAvatar', this.state.courseInstructorAvatar);
 
-    fetch("http://houseofhackers.me:81/updateCourseInstructorAvatar/"+this.props.match.params.id+"/", {
+    fetch("http://localhost:8000/updateCourseInstructorAvatar/"+this.props.match.params.id+"/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -599,7 +599,7 @@ export default class New extends React.PureComponent {
     data.append('courseID', this.props.match.params.id);
     data.append('lessonName', "Lesson Title");
 
-    fetch("http://houseofhackers.me:81/storeLesson/", {
+    fetch("http://localhost:8000/storeLesson/", {
       method:'POST',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -631,7 +631,7 @@ export default class New extends React.PureComponent {
 
     data.append('lessonName', lessonName);
 
-    fetch("http://houseofhackers.me:81/updateLesson/"+id+"/", {
+    fetch("http://localhost:8000/updateLesson/"+id+"/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -661,7 +661,7 @@ export default class New extends React.PureComponent {
       data.append('lectureType', lessons[i].lectures[j].lectureType);
       data.append('lectureVideo', lessons[i].lectures[j].lectureVideo);
 
-    fetch("http://houseofhackers.me:81/updateLecture/"+id+"/", {
+    fetch("http://localhost:8000/updateLecture/"+id+"/", {
       method:'PUT',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -688,7 +688,7 @@ export default class New extends React.PureComponent {
     data.append('lectureType', "Text");
     data.append('lectureVideo', "");
 
-    fetch("http://houseofhackers.me:81/storeLecture/", {
+    fetch("http://localhost:8000/storeLecture/", {
       method:'POST',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -722,7 +722,7 @@ export default class New extends React.PureComponent {
     data.append('lectureID', this.state.activeView.id);
     data.append('fileContent', file.fileData);
 
-    fetch("http://houseofhackers.me:81/storeFiles/", {
+    fetch("http://localhost:8000/storeFiles/", {
       method:'POST',
       body:data,
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
@@ -754,7 +754,7 @@ export default class New extends React.PureComponent {
     let _this = this;
     let lessons = this.state.lessons;
 
-    fetch("http://houseofhackers.me:81/deleteLesson/" + id + "/", {
+    fetch("http://localhost:8000/deleteLesson/" + id + "/", {
       method:'DELETE',
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
     })
@@ -780,7 +780,7 @@ export default class New extends React.PureComponent {
     let _this = this;
     let lessons = this.state.lessons;
 
-    fetch("http://houseofhackers.me:81/deleteLecture/" + id + "/", {
+    fetch("http://localhost:8000/deleteLecture/" + id + "/", {
       method:'DELETE',
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
     })
@@ -807,7 +807,7 @@ export default class New extends React.PureComponent {
     let _this = this;
     let lessons = this.state.lessons;
 
-    fetch("http://houseofhackers.me:81/deleteQuestion/"+id+"/", {
+    fetch("http://localhost:8000/deleteQuestion/"+id+"/", {
       method:'DELETE',
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
     })
@@ -834,7 +834,7 @@ export default class New extends React.PureComponent {
     let _this = this;
     let lessons = this.state.lessons;
 
-    fetch("http://houseofhackers.me:81/deleteAnswer/"+id+"/", {
+    fetch("http://localhost:8000/deleteAnswer/"+id+"/", {
       method:'DELETE',
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
     })
@@ -861,7 +861,7 @@ export default class New extends React.PureComponent {
     let _this = this;
     let lessons = this.state.lessons;
 
-    fetch("http://houseofhackers.me:81/deleteFile/"+id+"/", {
+    fetch("http://localhost:8000/deleteFile/"+id+"/", {
       method:'DELETE',
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
     })
@@ -1215,7 +1215,7 @@ export default class New extends React.PureComponent {
     if(this.state.courseImage === "")
     {
       return(
-        <img src={'http://houseofhackers.me/media/' + this.state.courseImagePreview} className="lmsNewCourseImagePreview"/>
+        <img src={'http://localhost:8000/media/' + this.state.courseImagePreview} className="lmsNewCourseImagePreview"/>
       )
     }
     else {

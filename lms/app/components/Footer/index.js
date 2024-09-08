@@ -5,22 +5,24 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './style.css';
 import './styleM.css';
 
-export default class Footer extends React.PureComponent {
-  render() {
-    return (
-      <div className="footerComponent">
-        <span></span>
-        <span className="footerCopyright">LMS - Copyright 2017 | All Rights Reserved</span>
-        <span></span>
-      </div>
-    );
-  }
-}
-
-Footer.contextTypes = {
-  router: React.PropTypes.object
+const Footer = () => {
+  return (
+    <div className="footerComponent">
+      <span></span>
+      <span className="footerCopyright">LMS - Copyright 2024 | All Rights Reserved</span>
+      <span></span>
+    </div>
+  );
 };
+
+Footer.propTypes = {
+  someProp: PropTypes.string,
+  anotherProp: PropTypes.number,
+};
+
+export default Footer;

@@ -85,7 +85,7 @@ export default class Browse extends React.PureComponent {
       })
     }
 
-    fetch('http://houseofhackers.me:81/getCourses/'+category+'/'+this.state.count+'/'+this.state.page+'/', {
+    fetch('http://localhost:8000/getCourses/'+category+'/'+this.state.count+'/'+this.state.page+'/', {
       method:'GET'
     })
     .then(function(response) {
@@ -128,7 +128,7 @@ export default class Browse extends React.PureComponent {
   };
 
   getCategories = () => {
-    fetch("http://houseofhackers.me:81/getCategories/", {
+    fetch("http://localhost:8000/getCategories/", {
       method:'GET'
     })
     .then(function(response) {
@@ -155,7 +155,7 @@ export default class Browse extends React.PureComponent {
     let data = new FormData();
     data.append('searchContent', this.state.searchContent);
 
-    fetch('http://houseofhackers.me:81/searchCourse/'+this.state.count+'/'+this.state.page+'/', {
+    fetch('http://localhost:8000/searchCourse/'+this.state.count+'/'+this.state.page+'/', {
       method:'POST',
       body:data
     })
@@ -226,7 +226,7 @@ export default class Browse extends React.PureComponent {
                 <Link className="lmsHomeMainBlock" key={index} to={'/course/'+course.id}>
                   <Card style={{height:'385px'}}>
                     <CardMedia style={{width:'100%', height:'240px', overflow:'hidden', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                      <img src={'http://houseofhackers.me/media/' + course.courseImage} />
+                      <img src={'http://localhost:8000/media/' + course.courseImage} />
                     </CardMedia>
                     <CardTitle title={course.courseName} subtitle={course.courseSummary} />
                   </Card>

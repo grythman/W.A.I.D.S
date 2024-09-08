@@ -51,7 +51,7 @@ export default class Lessons extends React.PureComponent {
 
   getCourse = (id) => {
     let _this = this;
-    fetch("http://houseofhackers.me:81/showCourse/"+id+"/", {
+    fetch("http://localhost:8000/showCourse/"+id+"/", {
       method:'GET',
       headers:{'Authorization': 'JWT ' + this.state.app.state.token}
     })
@@ -153,7 +153,7 @@ export default class Lessons extends React.PureComponent {
     data.append('lectureID', this.state.activeView.id);
     data.append('answers', this.state.lessons[this.state.activeLesson].lectures[this.state.activeLecture].userAnswers);
 
-    fetch("http://houseofhackers.me:81/completeLecture/", {
+    fetch("http://localhost:8000/completeLecture/", {
       method:'POST',
       body:data,
       headers:{'Authorization': 'JWT '+this.state.token}
@@ -330,7 +330,7 @@ export default class Lessons extends React.PureComponent {
       return(
         <div className="lmsLessonMainContent">
           {this.state.activeView.lectureFiles.map((file, index) => (
-            <a href={'http://127.0.0.1/media/' + file.fileData} key={index} style={{textDecoration:'none'}} target="_blank"><div className="lmsNewFileBlock" ><span></span> {file.fileData} <span></span></div></a>
+            <a href={'http://localhost:8000/media/' + file.fileData} key={index} style={{textDecoration:'none'}} target="_blank"><div className="lmsNewFileBlock" ><span></span> {file.fileData} <span></span></div></a>
           ))}
         </div>
       )

@@ -9,6 +9,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'userID', 'name', 'avatar_thumbnail', 'roleID', 'stripe_id', 'created_at', 'updated_at')
         read_only_fields = ('created_at', 'updated_at')
 
+
+
 class RoleSerializer(serializers.ModelSerializer):
 
     class Meta:

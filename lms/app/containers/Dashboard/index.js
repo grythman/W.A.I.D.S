@@ -80,7 +80,7 @@ export default class Dashboard extends React.PureComponent {
   getCourses = (category = 0) => {
     let _this = this;
 
-    fetch('http://houseofhackers.me:81/myCourses/'+category+'/'+this.state.count+'/'+this.state.page+'/', {
+    fetch('http://localhost:8000/myCourses/'+category+'/'+this.state.count+'/'+this.state.page+'/', {
       method:'GET',
       headers: {
         'Authorization': 'JWT ' + this.state.app.state.token
@@ -127,7 +127,7 @@ export default class Dashboard extends React.PureComponent {
 
 
   getCategories = () => {
-    fetch("http://houseofhackers.me:81/getCategories/", {
+    fetch("http://localhost:8000/getCategories/", {
       method:'GET'
     })
     .then(function(response) {
@@ -143,7 +143,7 @@ export default class Dashboard extends React.PureComponent {
   createCourse = () => {
     let _this = this;
 
-    fetch('http://houseofhackers.me:81/storeCourse/', {
+    fetch('http://localhost:8000/storeCourse/', {
       method:'POST',
       headers:{'Authorization':'JWT ' + this.state.app.state.token}
     })
@@ -165,7 +165,7 @@ export default class Dashboard extends React.PureComponent {
     let _this = this;
     let course = this.state.course;
 
-    fetch("http://127.0.0.1/deleteCourse/"+this.state.activeCourse+"/", {
+    fetch("http://localhost:8000/deleteCourse/"+this.state.activeCourse+"/", {
       method:'POST',
       headers:{'Authorization':'JWT '+ this.state.app.state.token}
     })
@@ -298,7 +298,7 @@ export default class Dashboard extends React.PureComponent {
                   <Link to={'/detail/'+course.id} style={{textDecoration:'none'}}>
                     <Card style={{height:'385px'}}>
                       <CardMedia style={{width:'100%', height:'240px', overflow:'hidden', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                        <img src={'http://houseofhackers.me/media/'+course.courseImage} style={{width:'100%', height:'auto'}}/>
+                        <img src={'http://localhost:8000/media/'+course.courseImage} style={{width:'100%', height:'auto'}}/>
                       </CardMedia>
                       <CardTitle title={course.courseName} subtitle={course.courseSummary} />
                       {this.renderProgress(course)}

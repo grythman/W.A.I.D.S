@@ -42,7 +42,7 @@ class Payment extends React.Component {
       console.log(token);
       let data = new FormData();
       data.append('stripeToken', token.id);
-      fetch("http://houseofhackers.me:81/enrollCourse/" + this.props.courseID + "/", {
+      fetch("http://localhost:8000/enrollCourse/" + this.props.courseID + "/", {
         method:'POST',
         body:data,
         headers: { 'Authorization': 'JWT ' + this.state.app.state.token}

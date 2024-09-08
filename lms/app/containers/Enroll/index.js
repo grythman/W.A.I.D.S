@@ -37,7 +37,7 @@ export default class Enroll extends React.PureComponent {
   }
 
   getCourse = (id) => {
-    fetch("http://houseofhackers.me:81/showCourse/"+id+"/", {
+    fetch("http://localhost:8000/showCourse/"+id+"/", {
       method:'GET'
     })
     .then(function(response) {
@@ -104,7 +104,7 @@ export default class Enroll extends React.PureComponent {
                   <div className="lmsEnrollSummaryMain">
                     <div className="lmsEnrollCourse">
                       <div className="lmsEnrollCourseImageContainer">
-                        <img src={'http://houseofhackers.me/media/' + this.state.course.courseImage} className="lmsEnrollCourseImage"/>
+                        <img src={'http://localhost:8000/media/' + this.state.course.courseImage} className="lmsEnrollCourseImage"/>
                       </div>
                       <div className="lmsEnrollCourseName">{this.state.course.courseName}</div>
                       {this.renderPrice()}

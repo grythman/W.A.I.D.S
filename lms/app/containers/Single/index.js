@@ -47,7 +47,7 @@ export default class Single extends React.PureComponent {
   getCourse = (id) => {
     let _this = this;
 
-    fetch("http://houseofhackers.me:81/showCourse/"+id + "/", {
+    fetch("http://localhost:8000/showCourse/"+id + "/", {
       method:'GET',
       headers: { 'Authorization': 'JWT ' + this.state.app.state.token }
     })
@@ -204,7 +204,7 @@ export default class Single extends React.PureComponent {
       return(
         <div className="lmsDetailStudentBlock" key={index}>
           <div className="lmsDetailStudentBlockLeft">
-            <img  className="lmsDetailStudentAvatar" src={'http://houseofhackers.me/media/' + student.profile.avatar_thumbnail}/>
+            <img  className="lmsDetailStudentAvatar" src={'http://localhost:8000/media/' + student.profile.avatar_thumbnail}/>
             <div className="lmsDetailStudentName">{student.profile.name}</div>
           </div>
           <div className="lmsDetailStudentBlockRight">
@@ -221,7 +221,7 @@ export default class Single extends React.PureComponent {
       return(
         <div className="lmsDetailStudentBlock" key={index}>
           <div className="lmsDetailStudentBlockLeft">
-            <img  className="lmsDetailStudentAvatar" src={'http://houseofhackers.me/media/' + student.profile.avatar_thumbnail}/>
+            <img  className="lmsDetailStudentAvatar" src={'http://localhost:8000/media/' + student.profile.avatar_thumbnail}/>
             <div className="lmsDetailStudentName">{student.profile.name}</div>
           </div>
           <div className="lmsDetailStudentBlockRight">
@@ -293,7 +293,7 @@ export default class Single extends React.PureComponent {
         <div className="lmsDetailAuthor">
           <div className="lmsDetailAuthorContainer">
             <div className="lmsDetailAuthorAvatar">
-              <img className="lmsDetailAuthorAvatarImg" src={'http://houseofhackers.me/media/' + this.state.course.courseInstructorAvatar}/>
+              <img className="lmsDetailAuthorAvatarImg" src={'http://localhost:8000/media/' + this.state.course.courseInstructorAvatar}/>
             </div>
             <div className="lmsDetailAuthorInfo">
               <div className="lmsDetailAuthorName">{this.state.course.courseInstructorName}</div>
@@ -353,7 +353,7 @@ export default class Single extends React.PureComponent {
             </div>
             <div className="lmsLessonColumnOneContent">
               <div className="lmsSingleLessonImageContainer">
-                <img className="lmsSingleLessonImage" src={'http://houseofhackers.me/media/' + this.state.course.courseImage} />
+                <img className="lmsSingleLessonImage" src={'http://localhost:8000/media/' + this.state.course.courseImage} />
               </div>
               <div className="lmsLessonColumnOneTitle">{this.state.course.courseName}</div>
               <div className="lmsLessonList">
