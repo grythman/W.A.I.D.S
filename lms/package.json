@@ -10,8 +10,8 @@
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Nadeem Soharab",
-  "license": "MIT",
+  "author": "B.Tuguldur",
+  "license": "",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
     "preanalyze": "npm run analyze:clean",
