@@ -1,18 +1,16 @@
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework_simplejwt import views as jwt_views
-from .views import  # Ensure these views are correctly imported
-
 from .views import (
     GetCourseView, ShowCourseView, StoreCourseView, EnrollCourseView, GetCategoriesView, 
-    CompleteLectureView, StoreLessonView, StoreLectureView, StoreFilesView, StoreQuestionsView, 
-    StoreUserView, GetUserView, MyCoursesView, EditCourseView, UpdateCourseImageView, 
+    CompleteLectureView, StoreLessonView, StoreLectureView, StoreFilesView, StoreQuestionsView,
+    GetUserView, MyCoursesView, EditCourseView, UpdateCourseImageView, 
     UpdateCourseInstructorAvatarView, StoreAnswerView, UpdateCorrectAnswerView, CompleteCourseView, 
     SearchCourseView, RemoveCourseView, SignInView, SignUpView 
 )
 
 urlpatterns = [
-     path('token/', 
+    path('token/', 
          jwt_views.TokenObtainPairView.as_view(), 
          name='token_obtain_pair'),
     path('token/refresh/', 

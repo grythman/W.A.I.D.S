@@ -1,17 +1,16 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core.paginator import Paginator
 from .serializers import CourseSerializer, LessonSerializer, LectureSerializer, CategorySerializer, FileSerializer, QuestionSerializer, AnswerSerializer, CompleteSerializer, EnrollSerializer, ProfileSerializer, RoleSerializer, SolutionSerializer
 from .models import Course, Lesson, Lecture, Category, File, Question, Answer, Complete, Enroll, Profile, Role, Solution
 from django.contrib.auth.models import User
-import stripe
+import stripe # type: ignore
 from django.conf import settings
-from django.contrib.auth import authenticate
-from django.http import JsonResponse
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from rest_framework import status
+
 
 class GetProfileView(APIView):
     
@@ -562,6 +561,8 @@ class CompleteCourseView(APIView):
 
 
 
+         
+
 
 class EnrollCourseView(APIView):
 
@@ -1047,41 +1048,72 @@ class SearchCourseView(APIView):
         result = {"courses": courses, "nextPageNum": nextPageNum, "previousPageNum":previousPageNum}
         return Response(result)
 
+class SignInView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        password = request.data.get('password')
 
-class StoreUserView(APIView):
-        
-            def post(self, request):
-                name = request.POST.get('username')
-                email = request.POST.get('email')
-                password = request.POST.get('password')
-                sub = email[:2]
-                avatar = f'https://avatars.dicebear.com/api/initials/{sub}.svg'
-        
-                user = User.objects.create_user(
-                    password=password,
-                    is_superuser=0,
-                    username=email,
-                    first_name='firstName',
-                    last_name='lastName',
-                    email=email,
-                    is_staff=0,
-                    is_active=1
-                )
-                user.save()
-        
-                # Assuming roleID 2 corresponds to a specific role, fetch that role instance
-                role = Role.objects.get(id=2)
-        
-                profile = Profile(
-                    user=user,
-                    name=name,
-                    role=role,
-                    avatar_thumbnail=avatar
-                )
-                profile.save()
-        
-                result = {'success': 'Thanks for Signing Up!'}
-                return Response(result)
+        # Authenticate user
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            # Generate tokens
+            refresh = RefreshToken.for_user(user)
+            
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'message': 'Login Successful'
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+class SignUpView(APIView):
+
+    def post(self, request):
+        name = request.data.get('username')  # Using request.data for JSON payloads
+        email = request.data.get('email')
+        password = request.data.get('password')
+        sub = email[:2]
+        avatar = f'https://avatars.dicebear.com/api/initials/{sub}.svg'
+
+        # Check if the user already exists
+        if User.objects.filter(email=email).exists():
+            return Response({'error': 'User already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create user
+        user = User.objects.create_user(
+            password=password,
+            is_superuser=0,
+            username=email,
+            first_name='firstName',
+            last_name='lastName',
+            email=email,
+            is_staff=0,
+            is_active=1
+        )
+        user.save()
+
+        # Fetch specific role, assuming id 2 corresponds to the desired role
+        role = Role.objects.get(id=2)
+
+        # Create Profile instance
+        profile = Profile(
+            user=user,
+            name=name,
+            role=role,
+            avatar_thumbnail=avatar
+        )
+        profile.save()
+
+        # Generate JWT tokens for the user
+        refresh = RefreshToken.for_user(user)
+
+        result = {
+            'success': 'Thanks for Signing Up!',
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
+        }
+        return Response(result, status=status.HTTP_201_CREATED)
         
 
 class UpdateUserView(APIView):
