@@ -1,14 +1,10 @@
-/*
- *
- * App
- *
- */
-
+// lms/app/containers/App/index.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import Home from 'containers/Home';
 import Browse from 'containers/Browse';
@@ -32,12 +28,12 @@ import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import './styleM.css';
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
     this.state = {
-      token: localStorage.getItem('token'),
-      user: JSON.parse(localStorage.getItem('user')),
+      token: localStorage.getItem('token') || "",
+      user: JSON.parse(localStorage.getItem('user')) || {},
       snack: false,
       msg: "",
       email: "",
@@ -50,9 +46,6 @@ export default class App extends Component {
 
   static propTypes = { children: PropTypes.node };
   static childContextTypes = { muiTheme: PropTypes.object };
-  static contextType = {
-    router: PropTypes.object
-  };
 
   getChildContext() {
     var theme = getMuiTheme();
@@ -87,69 +80,72 @@ export default class App extends Component {
   };
 
   signIn = () => {
-    let _this = this;
-    let data = new FormData();
-    data.append('username', this.state.username);
-    data.append('password', this.state.password);
+    const { username, password } = this.state;
 
     fetch('http://localhost:8000/signIn/', {
       method: 'POST',
-      body: data,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
     })
       .then(response => response.json())
       .then(json => {
         if (json.error) {
-          _this.showSnack(json.error);
-        } else if (json.token) {
-          localStorage.setItem('token', json.token);
-          _this.setState({ token: json.token });
-          fetch('http://localhost:8000/getUser/', {
+          this.showSnack(json.error);
+        } else if (json.access) {
+          localStorage.setItem('token', json.access);
+          this.setState({ token: json.access });
+          return fetch('http://localhost:8000/getUser/', {
             method: 'GET',
-            headers: { Authorization: 'Bearer ' + json.token },
-          })
-            .then(response => response.json())
-            .then(json => {
-              localStorage.setItem('user', JSON.stringify(json.user));
-              _this.setState({ user: json.user });
-              _this.showSnack("Welcome " + json.user.name);
-              _this.handleAuth();
-            });
+            headers: {
+              Authorization: `Bearer ${json.access}`,
+            },
+          });
         }
-      });
+        throw new Error('Unexpected response');
+      })
+      .then(response => response.json())
+      .then(json => {
+        localStorage.setItem('user', JSON.stringify(json.user));
+        this.setState({ user: json.user });
+        this.showSnack(`Welcome ${json.user.username}`);
+        this.handleAuth();
+      })
+      .catch(error => this.showSnack(error.message));
   };
 
   signUp = () => {
-    let _this = this;
-    let data = new FormData();
-    data.append('email', this.state.email);
-    data.append('username', this.state.username);
-    data.append('password', this.state.password);
+    const { email, username, password } = this.state;
 
     fetch('http://localhost:8000/signUp/', {
       method: 'POST',
-      body: data,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, username, password }),
     })
       .then(response => response.json())
       .then(json => {
         if (json.error) {
-          _this.showSnack(json.error);
+          this.showSnack(json.error);
         } else if (json.success) {
-          _this.signIn();
+          this.signIn();
         }
-      });
+      })
+      .catch(error => this.showSnack(error.message));
   };
 
-  signOut = (redirect = 0) => {
-    let _this = this;
+  signOut = (redirect = false) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     this.showSnack("Good-bye!");
     this.setState({
       token: "",
-      user: "",
-    }, function () {
-      if (redirect === 1) {
-        setTimeout(function () { _this.context.router.history.push('/') }, 2000);
+      user: {},
+    }, () => {
+      if (redirect) {
+        setTimeout(() => this.props.history.push('/'), 2000);
       }
     });
   };
@@ -206,3 +202,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withRouter(App);
